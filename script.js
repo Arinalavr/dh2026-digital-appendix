@@ -6,6 +6,7 @@ const imageButtons = document.querySelectorAll(".image-open");
 const siteHeader = document.querySelector(".site-header");
 const sectionNavLinks = document.querySelectorAll(".section-nav a[href^='#']");
 const scrollTopButton = document.createElement("button");
+const coarsePointerMedia = window.matchMedia("(hover: none), (pointer: coarse)");
 let isReturningToTop = false;
 const sectionNavTargets = Array.from(sectionNavLinks)
   .map((link) => {
@@ -29,6 +30,27 @@ function disableNativeImageDragging(root = document) {
 }
 
 disableNativeImageDragging();
+
+function usesTouchLikePointer() {
+  return coarsePointerMedia.matches;
+}
+
+document.addEventListener("pointerup", (event) => {
+  if (!usesTouchLikePointer()) return;
+  if (!(event.target instanceof Element)) return;
+
+  const interactive = event.target.closest("a, button");
+  if (!interactive) return;
+
+  window.setTimeout(() => interactive.blur(), 0);
+});
+
+window.addEventListener("pageshow", () => {
+  if (!usesTouchLikePointer()) return;
+  if (document.activeElement && typeof document.activeElement.blur === "function") {
+    document.activeElement.blur();
+  }
+});
 
 function tokenizeSelectableText() {
   const textBlocks = document.querySelectorAll(
@@ -143,9 +165,10 @@ function getMotionBehavior() {
 }
 
 function scrollToSectionContent(target, hash) {
-  const anchor = target.querySelector(".section-head, .two-col, .contact-panel") || target;
+  const anchor = hash === "#contact" ? target : target.querySelector(".section-head, .two-col, .contact-panel") || target;
   const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
-  const top = anchor.getBoundingClientRect().top + window.scrollY - headerHeight - 22;
+  const gap = hash === "#contact" && usesTouchLikePointer() ? 10 : 22;
+  const top = anchor.getBoundingClientRect().top + window.scrollY - headerHeight - gap;
 
   window.scrollTo({
     top: Math.max(0, top),
@@ -228,6 +251,17 @@ window.addEventListener("scroll", updateActiveSectionNav, { passive: true });
 window.addEventListener("resize", updateActiveSectionNav);
 window.addEventListener("orientationchange", updateActiveSectionNav);
 updateActiveSectionNav();
+
+function alignCurrentHash() {
+  if (!window.location.hash) return;
+
+  const target = document.querySelector(window.location.hash);
+  if (!target) return;
+
+  window.setTimeout(() => scrollToSectionContent(target, window.location.hash), 80);
+}
+
+window.addEventListener("load", alignCurrentHash);
 
 function closeMenu() {
   if (!menuToggle || !navLinks) return;

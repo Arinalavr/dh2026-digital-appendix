@@ -1252,6 +1252,69 @@ code {
 }
 
 @media (hover: none), (pointer: coarse) {
+  .flas-header-link:hover,
+  .footer-logo-link:hover {
+    opacity: 1;
+    transform: none;
+  }
+
+  .nav-links a:hover:not(.is-active):not([aria-current]),
+  .nav-links button:hover {
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .section-nav a:hover:not(.is-active):not([aria-current]) {
+    background: transparent;
+    color: var(--muted);
+  }
+
+  main a:not(.button):not(.image-open):hover,
+  .text-link:hover {
+    color: var(--ink);
+    top: 0;
+    text-decoration-color: rgba(23, 23, 22, 0.42);
+  }
+
+  .button:hover {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--bg);
+    transform: none;
+  }
+
+  .button.secondary:hover {
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .image-open:hover::after,
+  .image-open:focus-visible::after {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  .image-open:hover img,
+  .image-open:focus-visible img {
+    transform: none;
+    filter: none;
+  }
+
+  .image-modal-control:hover,
+  .image-modal-close:hover {
+    border-color: var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: none;
+    transform: none;
+  }
+
+  .footer-text-link:hover {
+    color: var(--ink);
+    top: 0;
+    text-decoration-color: rgba(23, 23, 22, 0.42);
+  }
+
   .image-modal-head {
     justify-content: flex-end;
   }
