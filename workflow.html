@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI-Assisted Qualitative Workflow</title>
+    <meta name="description" content="Detailed Stage 1 AI-assisted qualitative workflow for the DH2026 digital appendix.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="nav-shell">
+        <div class="brand-group">
+          <a class="flas-header-link" href="https://www.liberalarts.me" target="_blank" rel="noopener" aria-label="Faculty of Liberal Arts and Sciences Montenegro website">
+            <img class="flas-header-logo" src="assets/images/flas-wordmark.png" alt="FLAS">
+          </a>
+          <span class="brand-divider" aria-hidden="true"></span>
+        <a class="brand" href="index.html" aria-label="DH2026 Digital Appendix home">
+          <span class="brand-copy">
+            <strong>DH2026 Appendix</strong>
+            <span>Arina Lavrova</span>
+          </span>
+        </a>
+        </div>
+        <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="workflow.html">Workflow</a>
+          <a href="abstract.html">Abstract</a>
+          <a href="literature.html">Literature</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="content-page narrow">
+      <p class="eyebrow">Methodological appendix</p>
+      <h1 class="page-title">AI-Assisted Qualitative Workflow</h1>
+      <p class="lead">A transparent AI-assisted pipeline for working with small qualitative interview data.</p>
+      <p>This page documents the Stage 1 qualitative workflow behind the DH2026 project. AI tools supported transcription, candidate coding, synthesis scaffolding, and comparison, while final interpretation remained researcher-led and researcher-verified. The workflow stops here at Stage 1 findings and the selection of a concrete zone for deep interviews and 360° visualization.</p>
+
+      <section class="detail-section">
+        <h2>Pipeline Overview</h2>
+        <div class="pipeline" aria-label="Pipeline overview">
+          <div class="step">Field interviews</div>
+          <div class="step">Local Whisper transcription</div>
+          <div class="step">Speaker-labelled transcripts</div>
+          <div class="step">Claude Opus 4.6 candidate coding</div>
+          <div class="step">Researcher-directed consolidation</div>
+          <div class="step">AFF / BEH / COG verification in Taguette</div>
+          <div class="step">Voyant / Python visual checks</div>
+          <div class="step">Stage 1 findings → Selected 360° zone</div>
+        </div>
+        <p class="caption">Deep interviews and AR scenario testing are ongoing and are not presented here as completed analysis.</p>
+      </section>
+
+      <section class="detail-section">
+        <h2>Stage 1 Dataset</h2>
+        <p>Stage 1 is based on 20 short on-site interviews collected around the abandoned hotel site. The interviews captured first reactions, beach use, affective responses, memories or contextual knowledge, and possible future imaginaries.</p>
+        <div class="metrics-grid">
+          <div class="metric-card"><strong>20</strong><span>short on-site interviews</span></div>
+          <div class="metric-card"><strong>326</strong><span>coded highlights</span></div>
+          <div class="metric-card"><strong>38</strong><span>final researcher-verified tags</span></div>
+          <div class="metric-card"><strong>9</strong><span>Locals</span></div>
+          <div class="metric-card"><strong>7</strong><span>Expats</span></div>
+          <div class="metric-card"><strong>4</strong><span>Seasonal visitors</span></div>
+        </div>
+      </section>
+
+      <section class="detail-section">
+        <h2>1. Local Transcription</h2>
+        <p>Audio was transcribed locally using Whisper. For Stage 2 deep interviews, the project uses a reusable Python transcription script with regular <code>openai-whisper</code>, model <code>medium</code>, explicit language settings, and timestamped raw transcripts.</p>
+        <p>Raw transcripts are stored separately from later cleaned and speaker-labelled versions. This separation keeps the pipeline auditable: raw ASR output remains available, while interpretive editing and speaker labelling happen as later analytical steps.</p>
+        <ul class="tag-list">
+          <li>openai-whisper</li>
+          <li>medium model</li>
+          <li>timestamped segments</li>
+          <li>metadata JSON</li>
+          <li>optional ffmpeg preprocessing</li>
+        </ul>
+        <p class="muted-note">For noisy recordings, the workflow can optionally preprocess audio with ffmpeg: mono conversion, 16 kHz sample rate, loudness normalization, and light noise reduction.</p>
+      </section>
+
+      <section class="detail-section">
+        <h2>2. Claude Opus 4.6 Candidate Coding</h2>
+        <p>Claude Opus 4.6 was used for first-pass coding and code-structure scaffolding. It initially generated a larger candidate-code set. The researcher reviewed this output, decided it was too granular for the project, and directed consolidation into a smaller, thematically coherent code framework before manual verification.</p>
+        <div class="callout">108 candidate codes → researcher-directed consolidation → 37 first-pass codes → Taguette verification → 38 final researcher-verified tags</div>
+        <p>The AI-generated structure became a working layer for researcher judgement. The researcher evaluated the structure, requested reduction, then reassigned, revised, rejected, merged, and expanded codes during verification.</p>
+      </section>
+
+      <section class="detail-section">
+        <h2>3. Affective / Behavioral / Cognitive Code Framework</h2>
+        <p>The final coding was organized through an Affective / Behavioral / Cognitive framework. This framework was selected by the researcher to capture not only what respondents said about the site, but how they emotionally, practically, and interpretively related to it.</p>
+        <p>The framework draws on sense-of-place and place-attachment literature, especially the distinction between affective, behavioral, and cognitive dimensions of place experience (<a href="literature.html#konduri-lee-2023">Konduri & Lee, 2023</a>).</p>
+        <div class="card-grid">
+          <article class="card">
+            <h3>AFF</h3>
+            <p>Emotions, atmospheres, aesthetic reactions, sadness, fascination, attachment, shame, or affect.</p>
+          </article>
+          <article class="card">
+            <h3>BEH</h3>
+            <p>Practices and actions: walking, beach use, entering or not entering, exploration, and creative use.</p>
+          </article>
+          <article class="card">
+            <h3>COG</h3>
+            <p>Interpretations, knowledge, imagined futures, governance critique, safety concerns, and reuse ideas.</p>
+          </article>
+          <article class="card">
+            <h3>Final Codebook</h3>
+            <p>38 final tags:<br>- 10 AFF<br>- 11 BEH<br>- 17 COG</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="detail-section">
+        <h2>4. Researcher Verification In Taguette</h2>
+        <p>I manually checked all codes in Taguette. Verification included recoding, merging, renaming, splitting categories, adding contextual codes, and rejecting interpretations that did not fit the data.</p>
+        <div class="verification-list">
+          <article class="card">
+            <h3>From cognition to behavior</h3>
+            <p><code>COG.walking_trail</code> was removed and merged into <code>BEH.walking</code>, because walking along the trail describes an action rather than a cognitive interpretation.</p>
+          </article>
+          <article class="card">
+            <h3>Adding double meaning</h3>
+            <p>The quote "Let it be for students, but use it" was coded by the researcher as both <code>COG.reuse_community_social</code> and <code>COG.wasted_potential</code>.</p>
+          </article>
+          <article class="card">
+            <h3>Splitting visit frequency</h3>
+            <p><code>BEH.visit_frequency</code> was divided into <code>BEH.visit_frequent</code>, <code>BEH.visit_occasional</code>, and <code>BEH.visit_first</code>.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="detail-section">
+        <h2>5. What The AI Missed And Where Human Context Was Added</h2>
+        <p>The coding comparison showed a systematic pattern rather than random error. Claude Opus 4.6 reliably identified explicit statements but under-coded implicit and contextual references. My verification added contextual, indirect, and field-informed meanings.</p>
+        <div class="callout">The researcher identified 58% more tag assignments than the AI first-pass coding.</div>
+        <div class="two-col">
+          <div>
+            <h3>Researcher coding added more</h3>
+            <ul>
+              <li><code>COG.seasonality</code>: +19</li>
+              <li><code>BEH.exploration</code>: +13</li>
+              <li><code>BEH.first_discovery</code>: +13</li>
+              <li><code>AFF.nature_beauty_appreciation</code>: +11</li>
+              <li><code>AFF.graffiti_street_art</code>: +9</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Researcher coding reduced interpretation</h3>
+            <ul>
+              <li><code>AFF.nostalgia_former_glory</code>: -5</li>
+              <li><code>COG.scale_architectural_critique</code>: -4</li>
+              <li><code>AFF.identity_territorial_conflict</code>: -3</li>
+            </ul>
+          </div>
+        </div>
+        <p>This pattern is one reason the workflow is useful. AI can create a systematic first-pass baseline, and the researcher can then test where the baseline is too literal, too broad, or not contextual enough.</p>
+      </section>
+
+      <section class="detail-section">
+        <h2>6. Disagreement As Analytical Checkpoint</h2>
+        <p>Disagreement with AI outputs was treated as part of the analytical process. I first developed my own Stage 1 findings through close reading of coded materials, charts, word clouds, and field knowledge. AI-generated suggestions were then used as comparison material. Some suggestions were useful, some were reframed, and several were not taken into the final analysis.</p>
+        <div class="callout">One AI-generated interpretation suggested that entering the hotel itself changes perception. I rejected this causal framing. My interpretation was that prior attitudes toward ruins, risk, curiosity, and legitimacy shape whether people enter in the first place.</div>
+        <p>Agreement and disagreement with AI outputs were documented in Obsidian working notes and the AI-Assisted Research Audit Trail.</p>
+      </section>
+
+      <section class="detail-section">
+        <h2>7. Visual Pattern Checks</h2>
+        <p>After Taguette verification, exported highlights were examined through Voyant Tools and Python scripts. These visual checks helped compare code frequencies, respondent groups, and vocabulary patterns. They supported close reading by showing where patterns were concentrated or uneven.</p>
+        <div class="callout">Respondent-level heatmaps were used internally during analysis, but they are not published here because the working labels can expose interview-level metadata. The public appendix shows only aggregated visual outputs.</div>
+      </section>
+
+      <section class="detail-section">
+        <h2>8. Researcher-Led Stage 1 Findings</h2>
+        <ol class="numbered-findings">
+          <li>Nature is the main value that brings people to the site.</li>
+          <li>The hotel is an affectively charged object, not a neutral background.</li>
+          <li>For context-aware respondents, the hotel represents governance failure and wasted public potential.</li>
+          <li>Non-entry is common and meaningful.</li>
+          <li>Future imaginaries point toward mixed, small-scale, and non-monolithic reuse.</li>
+        </ol>
+      </section>
+
+      <section class="detail-section">
+        <h2>9. From Findings To Selected 360° Zone</h2>
+        <p>The Stage 1 findings did not directly produce a final design solution. They helped narrow what should be explored next: a concrete zone for deeper interviews and 360° documentation.</p>
+        <ul class="tag-list">
+          <li>visible from the beach path and parking area</li>
+          <li>accessible from the main movement route</li>
+          <li>possible to make safer with stairs and protective barriers</li>
+          <li>good views of the sea, beach, and mountains</li>
+          <li>existing graffiti and visual layers</li>
+          <li>connection to current beach use</li>
+        </ul>
+        <p class="muted-note">The submitted DH2026 abstract was written before Stage 1 coding verification was fully finalized. It refers to a 40-code codebook. The later verification report uses 38 final researcher-verified tags.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-shell">
+        <p>Arina Lavrova<br>Faculty of Liberal Arts and Sciences Montenegro<br>DH2026 research-in-progress digital appendix<br><a class="footer-text-link" href="https://dh2026.adho.org" target="_blank" rel="noopener">DH2026 Conference</a></p>
+        <a class="footer-logo-link" href="https://www.liberalarts.me" target="_blank" rel="noopener" aria-label="Faculty of Liberal Arts and Sciences Montenegro website">
+          <img class="flas-logo" src="assets/images/flas-logo.svg" alt="Faculty of Liberal Arts and Sciences Montenegro logo" loading="lazy">
+        </a>
+      </div>
+    </footer>
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
