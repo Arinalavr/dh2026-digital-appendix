@@ -6,6 +6,7 @@ const imageButtons = document.querySelectorAll(".image-open");
 const siteHeader = document.querySelector(".site-header");
 const sectionNavLinks = document.querySelectorAll(".section-nav a[href^='#']");
 const scrollTopButton = document.createElement("button");
+let isReturningToTop = false;
 const sectionNavTargets = Array.from(sectionNavLinks)
   .map((link) => {
     const hash = link.getAttribute("href");
@@ -113,17 +114,28 @@ function setActivePageNav(activeHash = window.location.hash) {
 setActivePageNav();
 
 function updateScrollTopButton() {
-  scrollTopButton.classList.toggle("is-visible", window.scrollY > 420);
+  if (window.scrollY <= 12) {
+    isReturningToTop = false;
+  }
+
+  scrollTopButton.classList.toggle("is-visible", window.scrollY > 420 && !isReturningToTop);
 }
 
 scrollTopButton.addEventListener("click", () => {
+  isReturningToTop = true;
+  scrollTopButton.classList.remove("is-visible");
+  scrollTopButton.blur();
+
   window.scrollTo({
     top: 0,
     behavior: getMotionBehavior(),
   });
+
+  window.setTimeout(updateScrollTopButton, 520);
 });
 
 window.addEventListener("scroll", updateScrollTopButton, { passive: true });
+window.addEventListener("scrollend", updateScrollTopButton);
 updateScrollTopButton();
 
 function getMotionBehavior() {
@@ -276,6 +288,7 @@ if (imageButtons.length) {
   const zoomOutButton = modal.querySelector(".image-modal-zoom-out");
   const zoomResetButton = modal.querySelector(".image-modal-zoom-reset");
   const zoomInButton = modal.querySelector(".image-modal-zoom-in");
+  const imageZoomMedia = window.matchMedia("(hover: hover) and (pointer: fine)");
   disableNativeImageDragging(modal);
   let zoomScale = 1;
   let imageX = 0;
@@ -289,6 +302,10 @@ if (imageButtons.length) {
 
   function clamp(number, min, max) {
     return Math.min(Math.max(number, min), max);
+  }
+
+  function imageZoomEnabled() {
+    return imageZoomMedia.matches;
   }
 
   function updateImageTransform() {
@@ -329,6 +346,7 @@ if (imageButtons.length) {
     modalImage.src = button.dataset.full;
     modalImage.alt = image ? image.alt : "";
     modalCaption.textContent = button.dataset.caption || "";
+    modal.classList.toggle("image-modal-no-zoom", !imageZoomEnabled());
     modal.classList.add("is-open");
     document.body.classList.add("menu-open");
     closeButton.focus();
@@ -356,6 +374,7 @@ if (imageButtons.length) {
   modalViewport.addEventListener(
     "wheel",
     (event) => {
+      if (!imageZoomEnabled()) return;
       event.preventDefault();
       const direction = event.deltaY > 0 ? -1 : 1;
       setImageZoom(zoomScale + direction * 0.16);
@@ -364,10 +383,13 @@ if (imageButtons.length) {
   );
 
   modalViewport.addEventListener("dblclick", () => {
+    if (!imageZoomEnabled()) return;
     setImageZoom(zoomScale > 1.01 ? 1 : 2);
   });
 
   modalViewport.addEventListener("pointerdown", (event) => {
+    if (!imageZoomEnabled()) return;
+
     activeImagePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
     if (modalViewport.setPointerCapture) {
@@ -391,6 +413,8 @@ if (imageButtons.length) {
   });
 
   modalViewport.addEventListener("pointermove", (event) => {
+    if (!imageZoomEnabled()) return;
+
     if (activeImagePointers.has(event.pointerId)) {
       activeImagePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     }
@@ -414,6 +438,8 @@ if (imageButtons.length) {
   });
 
   function stopDraggingImage(event) {
+    if (!imageZoomEnabled()) return;
+
     if (event && activeImagePointers.has(event.pointerId)) {
       activeImagePointers.delete(event.pointerId);
     }
@@ -450,6 +476,7 @@ if (imageButtons.length) {
     }
 
     if (!modal.classList.contains("is-open")) return;
+    if (!imageZoomEnabled()) return;
 
     if (event.key === "+" || event.key === "=") {
       setImageZoom(zoomScale + 0.25);
